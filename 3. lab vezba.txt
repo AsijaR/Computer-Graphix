@@ -1,0 +1,381 @@
+#include <GL/glut.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+static void Resize(int width, int height)
+{
+       glViewport(0, 0, width, height);
+       glMatrixMode(GL_PROJECTION);
+       glLoadIdentity();
+       float odnos =(float) width/(float) height;
+       gluPerspective(10,odnos, 1.0, 20.0);
+       //glFrustum(-odnos, odnos, -1.0, 1.0, 3.0, 100.0);
+}
+GLuint texture;
+GLuint texture1;
+GLuint texture2;
+GLuint texture3;
+
+//Funkcija za iscrtavanje texture
+GLuint LoadTexture(const char* filename, int width, int height){
+       GLuint texture;
+       unsigned char* data;
+       FILE* file;
+       file=fopen(filename, "rb");
+       if(file==NULL)return 0;
+       data=(unsigned char*)malloc(width * height * 3);
+       fread(data,width * height * 3,1,file);
+       fclose(file);
+       glGenTextures(1,&texture);
+       glBindTexture(GL_TEXTURE_2D,texture);
+       glTexEnvf(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
+       glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+       glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+       glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_REPEAT);
+       glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_REPEAT);
+       glTexImage2D(GL_TEXTURE_2D,0,GL_RGB,width,height,0,GL_RGB,GL_UNSIGNED_BYTE,data);
+       free(data);
+       return texture;
+}
+
+void sofa()
+{
+    glPushMatrix();
+    glPushMatrix();
+        glBindTexture(GL_TEXTURE_2D,texture2);
+        glBegin(GL_POLYGON);
+        //hoklica
+         glTexCoord2d(0.0, 0.0); glVertex3f(-1.2,-0.5,-1.0);
+         glTexCoord2d(1.0, 0.0); glVertex3f(-0.7,-0.5,-1.0);
+         glTexCoord2d(1.0, 1.0); glVertex3f(-0.7,-0.15,-1.0);
+         glTexCoord2d(0.0, 1.0); glVertex3f(-1.2,-0.15,-1.0);
+        glEnd();
+        glBegin(GL_POLYGON);
+        //hoklica
+         glTexCoord2d(0.0, 0.0); glVertex3f(-1.2,-0.5,-1.2);
+         glTexCoord2d(1.0, 0.0); glVertex3f(-0.7,-0.5,-1.2);
+         glTexCoord2d(1.0, 1.0); glVertex3f(-0.7,-0.15,-1.2);
+         glTexCoord2d(0.0, 1.0); glVertex3f(-1.2,-0.15,-1.2);
+        glEnd();
+        glBegin(GL_POLYGON);
+        //hoklica
+         glTexCoord2d(0.0, 0.0); glVertex3f(-1.2,-0.15,-1.0);
+         glTexCoord2d(1.0, 0.0); glVertex3f(-0.7,-0.15,-1.0);
+         glTexCoord2d(1.0, 1.0); glVertex3f(-0.7,-0.15,-1.2);
+         glTexCoord2d(0.0, 1.0); glVertex3f(-1.2,-0.15,-1.2);
+        glEnd();
+        glBegin(GL_POLYGON);
+        //hoklica
+         glTexCoord2d(0.0, 0.0); glVertex3f(-0.7,-0.15,-1.0);
+         glTexCoord2d(1.0, 0.0); glVertex3f(-0.7,-0.5,-1.0);
+         glTexCoord2d(1.0, 1.0); glVertex3f(-0.7,-0.5,-1.2);
+         glTexCoord2d(0.0, 1.0); glVertex3f(-0.7,-0.15,-1.2);
+        glEnd();
+    glPopMatrix();
+    glPushMatrix();
+        glBindTexture(GL_TEXTURE_2D,texture2);
+        glTranslatef(0.0, 0.0, 4.0);
+        glBegin(GL_POLYGON);
+        //hoklica
+         glTexCoord2d(0.0, 0.0); glVertex3f(-1.2,-0.5,-1.0);
+         glTexCoord2d(1.0, 0.0); glVertex3f(-0.7,-0.5,-1.0);
+         glTexCoord2d(1.0, 1.0); glVertex3f(-0.7,-0.15,-1.0);
+         glTexCoord2d(0.0, 1.0); glVertex3f(-1.2,-0.15,-1.0);
+        glEnd();
+        glBegin(GL_POLYGON);
+        //hoklica
+         glTexCoord2d(0.0, 0.0); glVertex3f(-1.2,-0.5,-1.2);
+         glTexCoord2d(1.0, 0.0); glVertex3f(-0.7,-0.5,-1.2);
+         glTexCoord2d(1.0, 1.0); glVertex3f(-0.7,-0.15,-1.2);
+         glTexCoord2d(0.0, 1.0); glVertex3f(-1.2,-0.15,-1.2);
+        glEnd();
+        glBegin(GL_POLYGON);
+        //hoklica
+         glTexCoord2d(0.0, 0.0); glVertex3f(-1.2,-0.15,-1.0);
+         glTexCoord2d(1.0, 0.0); glVertex3f(-0.7,-0.15,-1.0);
+         glTexCoord2d(1.0, 1.0); glVertex3f(-0.7,-0.15,-1.2);
+         glTexCoord2d(0.0, 1.0); glVertex3f(-1.2,-0.15,-1.2);
+        glEnd();
+        glBegin(GL_POLYGON);
+        //hoklica
+         glTexCoord2d(0.0, 0.0); glVertex3f(-0.7,-0.15,-1.0);
+         glTexCoord2d(1.0, 0.0); glVertex3f(-0.7,-0.5,-1.0);
+         glTexCoord2d(1.0, 1.0); glVertex3f(-0.7,-0.5,-1.2);
+         glTexCoord2d(0.0, 1.0); glVertex3f(-0.7,-0.15,-1.2);
+        glEnd();
+    glPopMatrix();
+    glPushMatrix();
+        glBindTexture(GL_TEXTURE_2D,texture3);
+        glBegin(GL_POLYGON);
+        //sediste
+         glTexCoord2d(0.0, 0.0); glVertex3f(-1.2,-0.07,-1.0);
+         glTexCoord2d(1.0, 0.0); glVertex3f(-1.2,-0.07,3.0);
+         glTexCoord2d(1.0, 1.0); glVertex3f(-1.1,-0.07,3.0);
+         glTexCoord2d(0.0, 1.0); glVertex3f(-1.1,-0.07,-1.0);
+        glEnd();
+        glBegin(GL_POLYGON);
+        //sediste2
+         glTexCoord2d(0.0, 0.0); glVertex3f(-1.1,-0.07,-1.0);
+         glTexCoord2d(1.0, 0.0); glVertex3f(-1.1,-0.07,3.0);
+         glTexCoord2d(1.0, 1.0); glVertex3f(-1.07,-0.3,3.0);
+         glTexCoord2d(0.0, 1.0); glVertex3f(-1.07,-0.3,-1.0);
+        glEnd();
+         glBegin(GL_POLYGON);
+        //sediste3
+         glTexCoord2d(0.0, 0.0); glVertex3f(-1.07,-0.3,-1.0);
+         glTexCoord2d(1.0, 0.0); glVertex3f(-1.07,-0.3,3.0);
+         glTexCoord2d(1.0, 1.0); glVertex3f(-0.77,-0.27,3.0);
+         glTexCoord2d(0.0, 1.0); glVertex3f(-0.77,-0.27,-1.0);
+        glEnd();
+        glBegin(GL_POLYGON);
+        //sediste4
+         glTexCoord2d(0.0, 0.0); glVertex3f(-0.77,-0.27,-1.0);
+         glTexCoord2d(1.0, 0.0); glVertex3f(-0.77,-0.27,3.0);
+         glTexCoord2d(1.0, 1.0); glVertex3f(-0.72,-0.35,3.0);
+         glTexCoord2d(0.0, 1.0); glVertex3f(-0.72,-0.35,-1.0);
+        glEnd();
+        glBindTexture(GL_TEXTURE_2D,texture2);
+        glBegin(GL_POLYGON);
+        //ispodsedista1
+         glTexCoord2d(0.0, 0.0); glVertex3f(-1.2,-0.35,-1.0);
+         glTexCoord2d(1.0, 0.0); glVertex3f(-1.2,-0.35,3.0);
+         glTexCoord2d(1.0, 1.0); glVertex3f(-0.71,-0.35,3.0);
+         glTexCoord2d(0.0, 1.0); glVertex3f(-0.71,-0.35,-1.0);
+        glEnd();
+        glBegin(GL_POLYGON);
+        //ispodsedista1
+         glTexCoord2d(0.0, 0.0); glVertex3f(-0.71,-0.35,-1.0);
+         glTexCoord2d(1.0, 0.0); glVertex3f(-0.71,-0.35,3.0);
+         glTexCoord2d(1.0, 1.0); glVertex3f(-0.71,-0.37,3.0);
+         glTexCoord2d(0.0, 1.0); glVertex3f(-0.71,-0.37,-1.0);
+        glEnd();
+    glPopMatrix();
+    glPopMatrix();
+}
+
+void display(){
+     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+     glClearColor(1,1,1,1);
+     glEnable(GL_CULL_FACE);
+     glCullFace(GL_BACK);
+
+     glShadeModel(GL_SMOOTH);
+
+     glEnable(GL_DEPTH_TEST);
+     glDepthFunc(GL_LESS);
+
+
+
+     glEnable(GL_LIGHT0);
+     glEnable(GL_LIGHTING);
+     glEnable(GL_NORMALIZE);
+     glEnable(GL_COLOR_MATERIAL);
+
+     GLfloat lmodel_ambient[] = { 10.0, 10.0, 10.0, 1.0 };
+     GLfloat light1_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
+     GLfloat light1_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+     GLfloat light_position[] = { 0.0, 0.47, 2.0, 0.0 };
+
+
+     GLfloat mat_amb_diff[] = { 0.7, 0.7, 0.7, 1.0 };
+     GLfloat mat_diffuse[] = { 0.8, 0.8, 0.8, 1.0 };
+     GLfloat mat_specular[] = { 10.0, 10.0, 10.0, 1.0 };
+     GLfloat low_shininess[] = { 10.0 };
+
+     glLightfv(GL_LIGHT0,GL_AMBIENT,lmodel_ambient);
+     glLightfv(GL_LIGHT0,GL_DIFFUSE,light1_diffuse);
+     glLightfv(GL_LIGHT0,GL_SPECULAR,light1_specular);
+     glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+
+     glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE, mat_amb_diff);
+
+     glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, mat_specular);
+     glMaterialfv(GL_FRONT_AND_BACK, GL_SHININESS, low_shininess);
+
+     glMatrixMode(GL_MODELVIEW);
+        glColor3f(1.0, 0.0, 0.0);
+        //glTranslatef(0 , 0, -10.0);
+        //glScalef(3.0,1.0,1.0);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glColor3d(1,1,1);
+
+    glEnable(GL_TEXTURE_2D);//Pokrenuti texture
+
+    glPushMatrix();
+
+        //glRotated(a,1,1,1);
+
+        glBindTexture(GL_TEXTURE_2D,texture1);
+        glBegin(GL_POLYGON);
+        //ceoni zid
+         glTexCoord2d(0.0, 0.0); glVertex3f(-0.5,-0.5,-3.0);
+         glTexCoord2d(2.0, 0.0); glVertex3f(2.5,-0.5,-3.0);
+         glTexCoord2d(2.0, 2.0); glVertex3f(2.5,0.5,-3.0);
+         glTexCoord2d(0.0, 2.0); glVertex3f(-0.5,0.5,-3.0);
+        glEnd();
+    glPopMatrix();
+    glPushMatrix();
+        glBindTexture(GL_TEXTURE_2D,texture);
+        glBegin(GL_POLYGON);
+        //pod
+         glColor3f(1.0,1.0,1.0);
+         glTexCoord2d(0.0, 0.0);glVertex3f(-1.2,-0.5,-15.0);
+         glTexCoord2d(2.0, 0.0);glVertex3f(-1.2,-0.5,5.0);
+         glTexCoord2d(2.0, 2.0);glVertex3f(2.5,-0.5,5.0);
+         glTexCoord2d(0.0, 2.0);glVertex3f(2.5,-0.5,-15.0);
+        glEnd();
+    glPopMatrix();
+    glPushMatrix();
+    glBindTexture(GL_TEXTURE_2D,texture2);
+    glBegin(GL_POLYGON);
+        //plafon
+         glColor3f(1.0,1.0,1.0);
+         glTexCoord2d(0.0, 0.0);glVertex3f(-1.2,0.5,-15.0);
+         glTexCoord2d(1.0, 0.0);glVertex3f(2.5,0.5,-15.0);
+         glTexCoord2d(1.0, 1.0);glVertex3f(2.5,0.5,10.0);
+         glTexCoord2d(0.0, 1.0);glVertex3f(-1.2,0.5,10.0);
+        glEnd();
+    glPopMatrix();
+    glPushMatrix();
+    glBindTexture(GL_TEXTURE_2D,texture1);
+    glBegin(GL_POLYGON);
+        //levi zid
+         glColor3f(1.0,1.0,1.0);
+         glTexCoord2d(2.0, 0.0);glVertex3f(-1.2,-0.5,5.0);
+         glTexCoord2d(0.0, 0.0);glVertex3f(-1.2,-0.5,-10.0);
+         glTexCoord2d(0.0, 2.0);glVertex3f(-1.2,0.5,-10.0);
+         glTexCoord2d(2.0, 2.0);glVertex3f(-1.2,0.5,5.0);
+        glEnd();
+    glPopMatrix();
+
+    glPushMatrix();
+     sofa();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(3, 0, -5);         //pomeramo ga pored tva
+    glTranslatef(-1.55, -0.32, 3.0);//vracamo ga na mestu gde je bio
+    glRotatef(190, 0, 1, 0);        //rotiramo ga
+    glTranslatef(1.55, 0.32, -3.0); //pomeramo sofu u centar koordinatnog sistema
+     sofa();
+    glPopMatrix();
+
+    //STO SA 4 NOGARE
+    glPushMatrix();
+    glTranslatef(0.2,0.0, -4.0);
+    glPushMatrix();
+        //Nogara 1
+         glColor3f(0.0,0.0,0.0);
+         glTranslatef(-0.25,-0.5,2.0);
+         glScalef(0.1,1,1);
+         glutSolidCube(0.3);
+    glPopMatrix();
+    glPushMatrix();
+        //Nogara 2
+         glColor3f(0.0,0.0,0.0);
+         glTranslatef(0.25,-0.5,2.0);
+         glScalef(0.1,1,1);
+         glutSolidCube(0.3);
+    glPopMatrix();
+    glPushMatrix();
+        //Nogara 3
+         glColor3f(0.0,0.0,0.0);
+         glTranslatef(-0.25,-0.5,3.5);
+         glScalef(0.1,1,1);
+         glutSolidCube(0.3);
+    glPopMatrix();
+    glPushMatrix();
+        //Nogara 4
+         glColor3f(0.0,0.0,0.0);
+         glTranslatef(0.25,-0.5,3.5);
+         glScalef(0.1,1,1);
+         glutSolidCube(0.3);
+    glPopMatrix();
+
+     glBindTexture(GL_TEXTURE_2D,texture3);
+
+     glPushMatrix();
+
+        //Daska od stola
+        glColor3f(0.0,0.0,1.0);
+         glTranslatef(0.0,-0.35,2.7);
+         glScalef(2,0.1,7);
+         glutSolidCube(0.3);
+    glPopMatrix();
+    glDisable(GL_TEXTURE_2D);
+    glPushMatrix();
+        //televizor
+         glColor3f(1.0,1.0,1.0);
+         glTranslatef(0.0,-0.25,2.7);
+         glutSolidCube(0.3);
+    glPopMatrix();
+    glPushMatrix();
+        //antene
+         glColor3f(1.5,1.5,1.5);
+         glTranslatef(0.0,0.05,2.7);
+         glBegin(GL_POLYGON);
+         glVertex3f(0.0,-0.2,0.0);
+         glVertex3f(0.01,-0.2,0.0);
+         glVertex3f(0.1,0.2,0.0);
+        glEnd();
+        glBegin(GL_POLYGON);
+         glVertex3f(0.0,-0.2,0.0);
+         glVertex3f(0.01,-0.2,0.0);
+         glVertex3f(-0.1,0.15,0.0);
+        glEnd();
+    glPopMatrix();
+    glPopMatrix();
+    glPushMatrix();
+    //glColor3f(1.0, 1.0, 1.0);
+    glTranslatef(0.0, 0.5, 2.0);
+    glColor3f(1, 1, 0);
+    glutSolidSphere(0.1, 10, 10);
+    glPopMatrix();
+    /*glPushMatrix();
+    glBindTexture(GL_TEXTURE_2D,texture1);
+    glBegin(GL_POLYGON);
+        //desni zid
+
+         glColor3f(1.0,1.0,1.0);
+         glTexCoord2d(0.0, 0.0);glVertex3f(0.5,-0.5,0.0);
+         glTexCoord2d(2.0, 0.0);glVertex3f(0.5,-0.5,5.0);
+         glTexCoord2d(2.0, 2.0);glVertex3f(0.5,0.5,5.0);
+         glTexCoord2d(0.0, 2.0);glVertex3f(0.5,0.5,0.0);
+        glEnd();
+    glPopMatrix();*/
+
+    glutSwapBuffers();
+
+        glFlush();
+}
+
+void inicijalizacija(){
+     glShadeModel(GL_FLAT);
+     glMatrixMode(GL_MODELVIEW);
+     glLoadIdentity();
+     gluLookAt(1,0.2,10,  0,0,0,  0,1,0);
+     //        cam pos, look at,  where up
+}
+
+int main(int argc,char** argv) {
+
+    glutInit(&argc,argv);
+    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
+    glutInitWindowPosition(0,0);
+    glutInitWindowSize(800, 600);
+    glutCreateWindow("Soba");
+    glutDisplayFunc(display);
+    glutReshapeFunc(Resize);
+    inicijalizacija();
+    //pozivanje texture
+    //texture=LoadTexture("textura.raw", 256, 256);
+    texture=LoadTexture("texture.raw", 256, 256);
+    texture3=LoadTexture("texture2.raw", 256, 256);
+    texture1=LoadTexture("texture1.raw",256, 256);
+    texture2=LoadTexture("texture3.raw",256, 256);
+    glutMainLoop();
+
+    return EXIT_SUCCESS;
+
+}
